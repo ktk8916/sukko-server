@@ -2,6 +2,7 @@ package sukko.taxidermy.domain.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import sukko.taxidermy.exception.NoMatchingDungeonType;
 
 import java.util.Arrays;
 
@@ -25,6 +26,6 @@ public enum DungeonType {
         return Arrays.stream(DungeonType.values())
                 .filter(dungeonType -> dungeonType.getText().equals(name))
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(NoMatchingDungeonType::new);
     }
 }
