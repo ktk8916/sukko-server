@@ -7,6 +7,7 @@ import sukko.expedition.exception.InvalidCharacterNameException;
 import sukko.expedition.exception.NoMatchingClassTypeException;
 import sukko.expedition.exception.NoMatchingServerTypeException;
 import sukko.taxidermy.exception.NoMatchingDungeonType;
+import sukko.taxidermy.exception.TaxidermyNotFoundException;
 
 import java.util.Arrays;
 
@@ -17,9 +18,11 @@ public enum CustomExceptionType {
     UNKNOWN(HttpStatus.INTERNAL_SERVER_ERROR, "알 수 없는 서버 에러", SukkoException.class),
     INVALID_CHARACTER_NAME(HttpStatus.BAD_REQUEST, "해당하는 캐릭터가 없습니다.", InvalidCharacterNameException.class),
 
-    NoMatchingDungeonType(HttpStatus.BAD_REQUEST, "일치하는 레이드가 없습니다.", NoMatchingDungeonType.class),
-    NoMatchingClassType(HttpStatus.BAD_REQUEST, "일치하는 직업이 없습니다.", NoMatchingClassTypeException.class),
-    NoMatchingServerType(HttpStatus.BAD_REQUEST, "일치하는 서버가 없습니다.", NoMatchingServerTypeException.class),
+    NO_MATCHING_DUNGEON_TYPE(HttpStatus.BAD_REQUEST, "일치하는 레이드가 없습니다.", NoMatchingDungeonType.class),
+    NO_MATCHING_CLASS_TYPE(HttpStatus.BAD_REQUEST, "일치하는 직업이 없습니다.", NoMatchingClassTypeException.class),
+    NO_MATCHING_SERVER_TYPE(HttpStatus.BAD_REQUEST, "일치하는 서버가 없습니다.", NoMatchingServerTypeException.class),
+
+    TAXIDERMY_NOT_FOUND(HttpStatus.NOT_FOUND, "해당하는 글이 없습니다.", TaxidermyNotFoundException.class),
 
     ;
 
