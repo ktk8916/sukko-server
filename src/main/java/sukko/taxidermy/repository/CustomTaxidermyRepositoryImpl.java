@@ -21,7 +21,7 @@ public class CustomTaxidermyRepositoryImpl implements CustomTaxidermyRepository{
     @Override
     public List<Taxidermy> findByCharacterName(String name) {
         return queryFactory.selectFrom(taxidermy)
-                .innerJoin(taxidermy.prisoner, loaCharacter)
+                .leftJoin(taxidermy.prisoner, loaCharacter)
                 .fetchJoin()
                 .where(loaCharacter.name.eq(name))
                 .fetch();

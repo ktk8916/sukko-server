@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sukko.taxidermy.domain.entity.Taxidermy;
 import sukko.taxidermy.domain.request.TaxidermyRegisterRequest;
+import sukko.taxidermy.domain.response.TaxidermyDetailResponse;
 import sukko.taxidermy.domain.response.TaxidermySummaryResponse;
 import sukko.taxidermy.service.TaxidermyService;
 
@@ -21,6 +22,11 @@ public class TaxidermyController {
     @ResponseStatus(HttpStatus.CREATED)
     public void save(@RequestBody TaxidermyRegisterRequest request){
         taxidermyService.save(request);
+    }
+
+    @GetMapping("/{id}")
+    public TaxidermyDetailResponse getById(@PathVariable("id") Long id){
+        return taxidermyService.getById(id);
     }
 
     @GetMapping
