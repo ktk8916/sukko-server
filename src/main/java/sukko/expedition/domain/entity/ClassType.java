@@ -8,6 +8,8 @@ import java.util.Arrays;
 @Getter
 @RequiredArgsConstructor
 public enum ClassType {
+    // 뿌리 클래스
+    WARRIOR("전사"), MARTIALARTIST("무도가"), GUNNER("헌터"), MAGE("마법사"), ASSASSIN("암살자"), SPECIALIST("스페셜리스트"),
 
     // 슈사이어
     DESTROYER("디스트로이어"), WARLORD("워로드"), BERSERKER("버서커"), HOLYKNIGHT("홀리나이트"), SLAYER("슬레이어"),
