@@ -21,7 +21,7 @@ public class TaxidermyService {
     private final ExpeditionRegisterService expeditionRegisterService;
 
     public void save(TaxidermyRegisterRequest request){
-        LoaCharacter character = expeditionRegisterService.register(request.prisonerName());
+        LoaCharacter character = expeditionRegisterService.register(request.nickname());
 
         Taxidermy taxidermy = request.toEntity(character);
 

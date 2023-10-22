@@ -1,8 +1,6 @@
 package sukko.taxidermy.domain.response;
 
 import sukko.expedition.domain.dto.LoaCharacterDto;
-import sukko.expedition.domain.entity.ServerType;
-import sukko.taxidermy.domain.entity.DungeonType;
 import sukko.taxidermy.domain.entity.Taxidermy;
 
 import java.time.LocalDateTime;
@@ -10,7 +8,7 @@ import java.time.LocalDateTime;
 public record TaxidermySummaryResponse(
         Long id,
         String title,
-        DungeonType dungeonType,
+        String dungeonType,
         LoaCharacterDto character,
         LocalDateTime createdAt
 ) {
@@ -18,7 +16,7 @@ public record TaxidermySummaryResponse(
         return new TaxidermySummaryResponse(
                 taxidermy.getId(),
                 taxidermy.getTitle(),
-                taxidermy.getDungeonType(),
+                taxidermy.getDungeonType().getText(),
                 LoaCharacterDto.fromEntity(taxidermy.getPrisoner()),
                 taxidermy.getCreatedAt()
         );

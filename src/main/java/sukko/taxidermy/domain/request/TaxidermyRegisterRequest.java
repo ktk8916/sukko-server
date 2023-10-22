@@ -6,7 +6,7 @@ import sukko.taxidermy.domain.entity.Taxidermy;
 
 public record TaxidermyRegisterRequest(
         String dungeon,
-        String prisonerName,
+        String nickname,
         String title,
         String content,
         String password
@@ -16,7 +16,7 @@ public record TaxidermyRegisterRequest(
         return Taxidermy.builder()
                 .title(title)
                 .content(content)
-                .dungeonType(DungeonType.BALTAN)
+                .dungeonType(DungeonType.getServerType(dungeon))
                 .password(password)
                 .prisoner(character)
                 .build();
