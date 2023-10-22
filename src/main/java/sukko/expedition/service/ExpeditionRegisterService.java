@@ -9,8 +9,10 @@ import sukko.expedition.domain.entity.ClassType;
 import sukko.expedition.domain.entity.Expedition;
 import sukko.expedition.domain.entity.LoaCharacter;
 import sukko.expedition.domain.entity.ServerType;
+import sukko.expedition.exception.InvalidCharacterNameException;
 import sukko.expedition.repository.ExpeditionRepository;
 import sukko.expedition.repository.LoaCharacterRepository;
+import sukko.global.exception.SukkoException;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -37,8 +39,8 @@ public class ExpeditionRegisterService {
 
         List<CharacterDto> characters = lostArkApiClient.getCharacterList(name);
 
-        if(characters.isEmpty()){
-            throw new RuntimeException("없음");
+        if(characters==null){
+            throw new InvalidCharacterNameException();
         }
 
         List<LoaCharacter> loaCharacters = characters.stream()
@@ -53,6 +55,6 @@ public class ExpeditionRegisterService {
         loaCharacterRepository.saveAll(loaCharacters);
 
         return loaCharacterRepository.findByName(name)
-                .orElseThrow(()->new NoSuchElementException("머선129"));
+                .orElseThrow(SukkoException::new);
     }
 }
