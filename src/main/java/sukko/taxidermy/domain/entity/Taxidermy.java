@@ -24,6 +24,12 @@ public class Taxidermy extends BaseEntity {
     @ManyToOne
     private LoaCharacter prisoner;
 
+    public void update(String title, String content, DungeonType dungeonType){
+        this.title = title;
+        this.content = content;
+        this.dungeonType = dungeonType;
+    }
+
     @Builder
     public Taxidermy(String title, String content, DungeonType dungeonType, String password, LoaCharacter prisoner) {
         this.title = title;

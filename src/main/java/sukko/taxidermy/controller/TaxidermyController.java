@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sukko.taxidermy.domain.request.TaxidermyDeleteRequest;
 import sukko.taxidermy.domain.request.TaxidermyRegisterRequest;
+import sukko.taxidermy.domain.request.TaxidermyUpdateRequest;
 import sukko.taxidermy.domain.response.TaxidermyDetailResponse;
 import sukko.taxidermy.domain.response.TaxidermySummaryResponse;
 import sukko.taxidermy.service.TaxidermyService;
@@ -42,5 +43,10 @@ public class TaxidermyController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id, @RequestBody TaxidermyDeleteRequest request){
         taxidermyService.delete(id, request);
+    }
+
+    @PutMapping("/{id}")
+    public void update(@PathVariable("id") Long id, @RequestBody TaxidermyUpdateRequest request){
+        taxidermyService.update(id, request);
     }
 }

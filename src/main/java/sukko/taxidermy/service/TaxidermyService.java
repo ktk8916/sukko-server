@@ -5,9 +5,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sukko.expedition.domain.entity.LoaCharacter;
 import sukko.expedition.service.ExpeditionRegisterService;
+import sukko.taxidermy.domain.entity.DungeonType;
 import sukko.taxidermy.domain.entity.Taxidermy;
 import sukko.taxidermy.domain.request.TaxidermyDeleteRequest;
 import sukko.taxidermy.domain.request.TaxidermyRegisterRequest;
+import sukko.taxidermy.domain.request.TaxidermyUpdateRequest;
 import sukko.taxidermy.domain.response.TaxidermyDetailResponse;
 import sukko.taxidermy.domain.response.TaxidermySummaryResponse;
 import sukko.taxidermy.exception.InvalidTaxidermyPasswordException;
@@ -57,6 +59,20 @@ public class TaxidermyService {
         }
 
         taxidermyRepository.delete(taxidermy);
+    }
+
+    public void update(Long id, TaxidermyUpdateRequest request) {
+        Taxidermy taxidermy = findById(id);
+
+        if(!isValidPassword(taxidermy, request.password())){
+            throw new InvalidTaxidermyPasswordException();
+        }
+
+        taxidermy.update(
+                request.title(),
+                request.content(),
+                DungeonType.getDungeonType(request.dungeon())
+        );
     }
 
     private boolean isValidPassword(Taxidermy taxidermy, String password){
