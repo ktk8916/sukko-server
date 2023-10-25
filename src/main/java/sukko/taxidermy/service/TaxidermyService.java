@@ -6,9 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 import sukko.expedition.domain.entity.LoaCharacter;
 import sukko.expedition.service.ExpeditionRegisterService;
 import sukko.taxidermy.domain.entity.Taxidermy;
+import sukko.taxidermy.domain.request.TaxidermyDeleteRequest;
 import sukko.taxidermy.domain.request.TaxidermyRegisterRequest;
 import sukko.taxidermy.domain.response.TaxidermyDetailResponse;
 import sukko.taxidermy.domain.response.TaxidermySummaryResponse;
+import sukko.taxidermy.exception.InvalidTaxidermyPasswordException;
 import sukko.taxidermy.exception.TaxidermyNotFoundException;
 import sukko.taxidermy.repository.TaxidermyRepository;
 
@@ -35,11 +37,6 @@ public class TaxidermyService {
         return TaxidermyDetailResponse.fromEntity(taxidermy);
     }
 
-    private Taxidermy findById(Long id) {
-        return taxidermyRepository.findById(id)
-                .orElseThrow(TaxidermyNotFoundException::new);
-    }
-
     public List<TaxidermySummaryResponse> getByCharacterName(String name) {
         return taxidermyRepository.findByCharacterName(name).stream()
                 .map(TaxidermySummaryResponse::fromEntity)
@@ -50,5 +47,24 @@ public class TaxidermyService {
         return taxidermyRepository.findRelationByCharacterName(name).stream()
                 .map(TaxidermySummaryResponse::fromEntity)
                 .toList();
+    }
+
+    public void delete(Long id, TaxidermyDeleteRequest request) {
+        Taxidermy taxidermy = findById(id);
+
+        if(!isValidPassword(taxidermy, request.password())){
+            throw new InvalidTaxidermyPasswordException();
+        }
+
+        taxidermyRepository.delete(taxidermy);
+    }
+
+    private boolean isValidPassword(Taxidermy taxidermy, String password){
+        return taxidermy.getPassword().equals(password);
+    }
+
+    private Taxidermy findById(Long id) {
+        return taxidermyRepository.findById(id)
+                .orElseThrow(TaxidermyNotFoundException::new);
     }
 }
