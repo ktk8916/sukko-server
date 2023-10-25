@@ -3,6 +3,7 @@ package sukko.taxidermy.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import sukko.taxidermy.domain.request.PasswordCheckRequest;
 import sukko.taxidermy.domain.request.TaxidermyDeleteRequest;
 import sukko.taxidermy.domain.request.TaxidermyRegisterRequest;
 import sukko.taxidermy.domain.request.TaxidermyUpdateRequest;
@@ -19,12 +20,6 @@ public class TaxidermyController {
 
     private final TaxidermyService taxidermyService;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody TaxidermyRegisterRequest request){
-        taxidermyService.save(request);
-    }
-
     @GetMapping("/{id}")
     public TaxidermyDetailResponse getById(@PathVariable("id") Long id){
         return taxidermyService.getById(id);
@@ -40,13 +35,24 @@ public class TaxidermyController {
         return taxidermyService.getRelationByCharacterName(name);
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Long id, @RequestBody TaxidermyDeleteRequest request){
-        taxidermyService.delete(id, request);
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public void save(@RequestBody TaxidermyRegisterRequest request){
+        taxidermyService.save(request);
+    }
+
+    @PostMapping("/{id}")
+    public void passwordCheck(@PathVariable("id") Long id, @RequestBody PasswordCheckRequest request){
+        taxidermyService.passwordCheck(id, request);
     }
 
     @PutMapping("/{id}")
     public void update(@PathVariable("id") Long id, @RequestBody TaxidermyUpdateRequest request){
         taxidermyService.update(id, request);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") Long id, @RequestBody TaxidermyDeleteRequest request){
+        taxidermyService.delete(id, request);
     }
 }

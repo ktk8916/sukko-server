@@ -7,6 +7,7 @@ import sukko.expedition.domain.entity.LoaCharacter;
 import sukko.expedition.service.ExpeditionRegisterService;
 import sukko.taxidermy.domain.entity.DungeonType;
 import sukko.taxidermy.domain.entity.Taxidermy;
+import sukko.taxidermy.domain.request.PasswordCheckRequest;
 import sukko.taxidermy.domain.request.TaxidermyDeleteRequest;
 import sukko.taxidermy.domain.request.TaxidermyRegisterRequest;
 import sukko.taxidermy.domain.request.TaxidermyUpdateRequest;
@@ -75,6 +76,14 @@ public class TaxidermyService {
         );
     }
 
+    public void passwordCheck(Long id, PasswordCheckRequest request) {
+        Taxidermy taxidermy = findById(id);
+
+        if(!isValidPassword(taxidermy, request.password())){
+            throw new InvalidTaxidermyPasswordException();
+        }
+    }
+
     private boolean isValidPassword(Taxidermy taxidermy, String password){
         return taxidermy.getPassword().equals(password);
     }
@@ -83,4 +92,5 @@ public class TaxidermyService {
         return taxidermyRepository.findById(id)
                 .orElseThrow(TaxidermyNotFoundException::new);
     }
+
 }
