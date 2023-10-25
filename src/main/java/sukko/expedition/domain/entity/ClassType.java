@@ -9,7 +9,12 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public enum ClassType {
     // 뿌리 클래스
-    WARRIOR("전사"), MARTIALARTIST("무도가"), GUNNER("헌터"), MAGE("마법사"), ASSASSIN("암살자"), SPECIALIST("스페셜리스트"),
+    WARRIOR_MALE("전사(남)"), WARRIOR_FEMALE("전사(여)"),
+    MARTIALARTIST_MALE("무도가(남)"), MARTIALARTIST_FEMALE("무도가(여)"),
+    GUNNER_MALE("헌터(남)"), GUNNER_FEMALE("헌터(여)"),
+    MAGE("마법사"),
+    ASSASSIN("암살자"),
+    SPECIALIST("스페셜리스트"),
 
     // 슈사이어
     DESTROYER("디스트로이어"), WARLORD("워로드"), BERSERKER("버서커"), HOLYKNIGHT("홀리나이트"), SLAYER("슬레이어"),
