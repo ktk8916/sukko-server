@@ -16,6 +16,7 @@ public class Taxidermy extends BaseEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Column(columnDefinition = "longtext")
     private String content;
     @Enumerated(EnumType.STRING)
     private DungeonType dungeonType;
