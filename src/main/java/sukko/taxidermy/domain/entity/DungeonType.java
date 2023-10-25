@@ -22,7 +22,7 @@ public enum DungeonType {
 
     private final String text;
 
-    public static DungeonType getServerType(String name){
+    public static DungeonType getDungeonType(String name){
         return Arrays.stream(DungeonType.values())
                 .filter(dungeonType -> dungeonType.getText().equals(name))
                 .findFirst()

@@ -16,7 +16,7 @@ public record TaxidermyRegisterRequest(
         return Taxidermy.builder()
                 .title(title)
                 .content(content)
-                .dungeonType(DungeonType.getServerType(dungeon))
+                .dungeonType(DungeonType.getDungeonType(dungeon))
                 .password(password)
                 .prisoner(character)
                 .build();
