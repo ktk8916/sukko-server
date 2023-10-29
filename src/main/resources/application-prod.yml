@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://10.128.0.7:3306/sukko?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: xorud
-    password: 9933
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: create
