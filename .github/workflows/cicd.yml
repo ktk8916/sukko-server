@@ -7,6 +7,9 @@
 
 name: Java CI with Gradle
 
+env:
+  RESOURCE_PATH: ./sukko/src/main/resources/application-prod.yml
+
 on:
   push:
     branches: [ "main" ]
@@ -26,6 +29,16 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+        
+    - name: Set yml file 
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: ${{ env.RESOURCE_PATH }} 
+      env:
+        spring.datasource.url: ${{secrets.DATABASE_URL}}
+        spring.datasource.username: ${{secrets.DATABASE_USERNAME}}
+        spring.datasource.password: ${{secrets.DATABASE_PASSWORD}}
+        lostark.key: ${{secrets.LOSTARK_API_KEY}}
         
     - name: Permission
       run: chmod 744 gradlew
@@ -55,4 +68,4 @@ jobs:
           sudo docker pull ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPOSITORY}}
           sudo docker stop ${{secrets.DOCKER_REPOSITORY}}
           sudo docker rm ${{secrets.DOCKER_REPOSITORY}}
-          sudo docker run --name ${{secrets.DOCKER_REPOSITORY}} -d -e DATABASE_URL=${{secrets.DATABASE_URL}} -e DATABASE_USERNAME=${{secrets.DATABASE_USERNAME}} -e DATABASE_PASSWORD=${{secrets.DATABASE_PASSWORD}} -e LOSTARK_API_KEY=${{secrets.LOSTARK_API_KEY}} -p 8080:8080 ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPOSITORY}} 
+          sudo docker run --name ${{secrets.DOCKER_REPOSITORY}} -d -p 8080:8080 ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPOSITORY}} 
