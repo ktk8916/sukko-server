@@ -34,7 +34,7 @@ jobs:
         spring.datasource.url: ${{secrets.DATABASE_URL}} 
         spring.datasource.username: ${{secrets.DATABASE_USERNAME}} 
         spring.datasource.password: ${{secrets.DATABASE_PASSWORD}}
-        lostark.key: ${{secrets.LOSTARK_API_KEY}}
+        lostArk.key: ${{secrets.LOSTARK_API_KEY}}
         
     - name: Permission
       run: chmod 744 gradlew
