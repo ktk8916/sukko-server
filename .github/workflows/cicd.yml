@@ -7,9 +7,6 @@
 
 name: Java CI with Gradle
 
-env:
-  RESOURCE_PATH: ./sukko/src/main/resources/application-prod.yml
-
 on:
   push:
     branches: [ "main" ]
@@ -33,7 +30,7 @@ jobs:
     - name: Set yml file 
       uses: microsoft/variable-substitution@v1
       with:
-        files: ${{ env.RESOURCE_PATH }} 
+        files: ./src/main/resources/application-prod.yml
       env:
         spring.datasource.url: ${{secrets.DATABASE_URL}}
         spring.datasource.username: ${{secrets.DATABASE_USERNAME}}
@@ -44,7 +41,7 @@ jobs:
       run: chmod 744 gradlew
       
     - name: Build Spring
-      run: ./gradlew clean build -Pspring.profiles.active=prod
+      run: ./gradlew clean build
 
     - name: Build Docker image
       run: docker build -t ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPOSITORY}} .
